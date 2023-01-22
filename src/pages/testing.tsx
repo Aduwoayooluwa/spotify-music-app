@@ -5,7 +5,7 @@ import axios from 'axios'
 type Props = {}
 
 const Testing = (props: Props) => {
-    const [_token, setToken] = React.useState<string | null>("")
+    const [token, setToken] = React.useState<string | null>("")
 
     useEffect(() => {
         const hash = window.location.hash
@@ -23,15 +23,18 @@ const Testing = (props: Props) => {
 }, [])
 
 
-    console.log(_token)
+    console.log('token', token)
     const fetchSpot =async () => {
             return axios.get('https://api.spotify.com/v1/me', {
             headers: {
-                'Authorization': `Bearer ${_token}`
+                'Authorization': `Bearer ${token}`
             }
             })
         }
-    const { data, isLoading, isError } = useQuery({queryKey: ["app"], queryFn: fetchSpot, retry: 2})
+
+    const { data, isLoading, isError } = useQuery({queryKey: ["app"], queryFn: fetchSpot, retry: 1})
+    console.log(data)
+
     if (isError) return <>Error Loading Page</>
     return (
         <div>
@@ -40,11 +43,7 @@ const Testing = (props: Props) => {
                 Loading....
             </>) : (
                 <>
-                {data.map((data: any) => (
-                    <>
-                        {data.display_name}
-                    </>
-                ))}
+                    Hello World Display Name:  {data?.data?.display_name}
                 </>
             )
         }
