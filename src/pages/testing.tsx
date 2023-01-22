@@ -6,6 +6,7 @@ type Props = {}
 
 const Testing = (props: Props) => {
     const [token, setToken] = React.useState<string | null>("")
+    const [userData, setUserData] = React.useState("")
 
     useEffect(() => {
         const hash = window.location.hash
